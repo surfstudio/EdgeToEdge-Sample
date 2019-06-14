@@ -8,8 +8,16 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity"
         android:fitsSystemWindows="true"
-        android:background="@color/colorPrimary"
->
+        android:background="@drawable/bg_gradient">
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:titleTextColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+    />
 
     <TextView
             android:id="@+id/hello_world"
@@ -19,8 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@android:color/white"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
             android:layout_width="120dp"
@@ -30,7 +37,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:hint="edit text field"
             android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/white"
             android:inputType="number"
             tools:ignore="HardcodedText"/>
 
