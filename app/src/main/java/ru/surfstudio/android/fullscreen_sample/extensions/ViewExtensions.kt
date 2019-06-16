@@ -4,43 +4,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.*
 
+const val POSSIBLE_KEYBOARD_HEIGHT = 400
 
 /**
  * Установка нулевого отступа сверху для [View]
  * Вызывается для того, чтобы [View] умещался под статус-бар
  */
-fun View.setZeroTopInset() {
+fun View.removeSystemInsets(listener: OnSystemBarsSizeChangedListener) {
     ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
+
+        val systemTopInset = insets.systemWindowInsetTop
+        val systemBottomInset = insets.systemWindowInsetBottom
+
+        val desiredBottomInset = if (systemBottomInset > POSSIBLE_KEYBOARD_HEIGHT) {
+            systemBottomInset
+        } else {
+            0
+        }
+
+        listener.invoke(systemTopInset, if (desiredBottomInset == 0) systemBottomInset else 0)
+
         ViewCompat.onApplyWindowInsets(
-            this,
-            insets.replaceSystemWindowInsets(
-                insets.systemWindowInsetLeft,
-                0,
-                insets.systemWindowInsetRight,
-                insets.systemWindowInsetBottom
-            )
+                this,
+                insets.replaceSystemWindowInsets(0, 0, 0, desiredBottomInset)
         )
     }
 }
 
-/**
- * Подстановка верхнего отступа для [View] на основе высоты статус бара
- */
-fun View.setStatusBarTopMargin() {
-    updateLayoutParams<ViewGroup.MarginLayoutParams> { updateMargins(top = marginTop + context.getStatusBarHeight()) }
-}
-
-/**
- * Подстановка верхнего отступа для [View] на основе высоты статус бара
- */
-fun View.setStatusBarTopPadding() {
-    updatePadding(top = paddingTop + context.getStatusBarHeight())
-}
-
-fun View.setNavbarBottomMargin() {
-    updateLayoutParams<ViewGroup.MarginLayoutParams> { updateMargins(bottom = marginBottom + context.getNavBarHeight()) }
-}
-
-fun View.setNavBarBottomPadding() {
-    updatePadding(bottom = paddingBottom + context.getNavBarHeight())
-}
+fun View.updateMargin(
+        start: Int = marginStart,
+        top: Int = marginTop,
+        end: Int = marginEnd,
+        bottom: Int = marginBottom
+) = updateLayoutParams<ViewGroup.MarginLayoutParams> { updateMarginsRelative(start, top, end, bottom) }

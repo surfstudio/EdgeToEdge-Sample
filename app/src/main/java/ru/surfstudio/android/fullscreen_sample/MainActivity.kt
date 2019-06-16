@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.surfstudio.android.fullscreen_sample.extensions.setStatusBarTopMargin
 import ru.surfstudio.android.fullscreen_sample.extensions.setWindowTransparency
+import ru.surfstudio.android.fullscreen_sample.extensions.updateMargin
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -16,8 +16,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setStatusBarTopMargin()
-        setWindowTransparency()
+        setWindowTransparency { statusBarSize, navigationBarSize ->
+            toolbar.updateMargin(top = statusBarSize)
+            btn.updateMargin(bottom = navigationBarSize)
+        }
         btn.setOnClickListener { container.setBackgroundColor(getRandomColor()) }
     }
 
