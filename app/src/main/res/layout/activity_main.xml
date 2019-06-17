@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/container"
+        android:id="@+id/bg_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient"
@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:hint="edit text field"
         android:inputType="number"
+        android:textColor="@android:color/white"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,13 +48,13 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/change_bg_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Press me"
+        android:textColor="#251F26"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
